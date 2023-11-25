@@ -22,7 +22,7 @@ from book import views
 
 urlpatterns = [
     path('add/', views.add_book, name='add'),
-    re_path(r'^book\S+', views.book, name='book'),
+    re_path(r'^book/(?P<id>\d+)', views.book, name='book'),
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
 ]

@@ -10,7 +10,7 @@
     <p>Все книги:</p>
     <ul>
         {% for el in books %}
-        <li><a href='/book/?id={{el.id}}&name={{el.name}}&author={{el.author}}'>{{el.name}}</a></li>
+        <li><a href='/book/{{el.id}}'>{{el.name}}</a></li>
         {% endfor %}
     </ul>
 </div>
