@@ -7,6 +7,7 @@
 {% block content %}
 
 <div>
+    <p>Все книги:</p>
     <ul>
         {% for el in books %}
         <li><a href='/book/?id={{el.id}}&name={{el.name}}&author={{el.author}}'>{{el.name}}</a></li>
