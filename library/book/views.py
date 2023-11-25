@@ -31,7 +31,7 @@ def add_book(request):
         if name and author:
             for el in books:
                 find_result = False
-                if name in el.get('name'):
+                if name in el.get('name') and author in el.get('author'):
                     find_result = True
                     break
             if not find_result:
