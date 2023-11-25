@@ -6,13 +6,21 @@
 
 {% block content %}
 
-<div>
-    <p>Все книги:</p>
-    <ul>
-        {% for el in books %}
-        <li><a href='/book/{{el.id}}'>{{el.name}}</a></li>
-        {% endfor %}
-    </ul>
+<p>Все книги:</p>
+
+{% for el in books %}
+<div class="card" style="margin-bottom: 5px;">
+    <div class="card-header">
+        <h5>{{ el.name }}</h5>
+    </div>
+    <div class="card-body">
+        <p>Автор: {{ el.author }}</p>
+        <p>Жанр:</p>
+        <p>Год:</p>
+        <p>id: {{ el.id }}</p>
+        <a class="btn btn-primary" href='/book/{{el.id}}' role="button">Подробнее</a>
+    </div>
 </div>
+{% endfor %}
 
 {% endblock %}
