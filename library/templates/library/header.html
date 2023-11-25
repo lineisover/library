@@ -1,0 +1,9 @@
+{% load static %}
+{% block header_site %}
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href={% url "home" %}>
+      <img src={% static "img/logo.png" %} width="30" height="30" class="d-inline-block align-top" alt="">
+      Библиотека книг
+    </a>
+  </nav>
+{% endblock header_site %}

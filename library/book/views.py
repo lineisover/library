@@ -2,13 +2,37 @@ from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 
 books = [{'id': 0,
-          'name': 'Test',
-          'author': 'test'},
+          'name': '1984',
+          'author': 'Джордж Оруэлл'},
          {'id': 1,
-          'name': 'Test2',
-          'author': 'test2'}]
+          'name': 'Скотный двор',
+          'author': 'Джордж Оруэлл'},
+         {'id': 2,
+          'name': 'Глотнуть воздуха',
+          'author': 'Джордж Оруэлл'},
+         {'id': 3,
+          'name': 'Дагон',
+          'author': 'Говард Лавкрафт'},
+         {'id': 4,
+          'name': 'Картина в доме',
+          'author': 'Говард Лавкрафт'},
+         {'id': 5,
+          'name': 'Из глубин мироздания',
+          'author': 'Говард Лавкрафт'},
+         {'id': 6,
+          'name': 'Хоббит, или Туда и обратно',
+          'author': 'Джон Рональд Руэл Толкин'},
+         {'id': 7,
+          'name': 'Братство Кольца',
+          'author': 'Джон Рональд Руэл Толкин'},
+         {'id': 8,
+          'name': 'Две крепости',
+          'author': 'Джон Рональд Руэл Толкин'},
+         {'id': 9,
+          'name': 'Возвращение короля',
+          'author': 'Джон Рональд Руэл Толкин'}]
 
-last_id = 1
+last_id = 9
 
 
 def index(request):
