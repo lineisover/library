@@ -1,0 +1,17 @@
+{% extends "book/base.html" %}
+
+{% block title %}
+Библиотека книг: Главная страница
+{% endblock %}
+
+{% block content %}
+
+{% for el in books %}
+<div>
+    <ul>
+        <li><a href='/book/?id={{el.id}}&name={{el.name}}&author={{el.author}}'>{{el.name}}</a></li>
+    </ul>
+</div>
+{% endfor %}
+
+{% endblock %}
