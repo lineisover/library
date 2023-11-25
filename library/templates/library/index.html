@@ -1,4 +1,4 @@
-{% extends "book/base.html" %}
+{% extends "library/base.html" %}
 
 {% block title %}
 Библиотека книг: Главная страница
@@ -6,12 +6,13 @@
 
 {% block content %}
 
-{% for el in books %}
 <div>
+    <p>Все книги:</p>
     <ul>
+        {% for el in books %}
         <li><a href='/book/?id={{el.id}}&name={{el.name}}&author={{el.author}}'>{{el.name}}</a></li>
+        {% endfor %}
     </ul>
 </div>
-{% endfor %}
 
 {% endblock %}
