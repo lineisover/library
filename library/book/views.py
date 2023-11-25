@@ -12,7 +12,7 @@ last_id = 1
 
 
 def index(request):
-    return render(request, 'book/index.html', {'books': books})
+    return render(request, 'library/index.html', {'books': books})
 
 
 def book(request):
