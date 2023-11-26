@@ -1,3 +1,3 @@
 ### Запрос для добавления новой книги
-`127.0.0.1:8000/add?name=new_book&author=new_author`  
+`127.0.0.1:8000/add?name=new_book&author=new_author&year=new_year&genre=new_genre`  
 Если книга с таким названием и тем же автором существует, то она не добавится.

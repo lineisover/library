@@ -3,34 +3,64 @@ from django.shortcuts import render
 
 books = [{'id': 0,
           'name': '1984',
-          'author': 'Джордж Оруэлл'},
+          'author': 'Джордж Оруэлл',
+          'year': '1949',
+          'genre': 'антиутопия',
+          'cover': '/img/covers/0/1984.webp'},
          {'id': 1,
           'name': 'Скотный двор',
-          'author': 'Джордж Оруэлл'},
+          'author': 'Джордж Оруэлл',
+          'year': '1945',
+          'genre': 'антиутопия',
+          'cover': '/img/covers/1/123.jpg'},
          {'id': 2,
           'name': 'Глотнуть воздуха',
-          'author': 'Джордж Оруэлл'},
+          'author': 'Джордж Оруэлл',
+          'year': '1939',
+          'genre': 'антиутопия',
+          'cover': '/img/no_photo.webp'},
          {'id': 3,
           'name': 'Дагон',
-          'author': 'Говард Лавкрафт'},
+          'author': 'Говард Лавкрафт',
+          'year': '1917',
+          'genre': 'ужасы',
+          'cover': '/img/no_photo.webp'},
          {'id': 4,
           'name': 'Картина в доме',
-          'author': 'Говард Лавкрафт'},
+          'author': 'Говард Лавкрафт',
+          'year': '1920',
+          'genre': 'ужасы',
+          'cover': '/img/no_photo.webp'},
          {'id': 5,
           'name': 'Из глубин мироздания',
-          'author': 'Говард Лавкрафт'},
+          'author': 'Говард Лавкрафт',
+          'year': '1920',
+          'genre': 'ужасы',
+          'cover': '/img/no_photo.webp'},
          {'id': 6,
           'name': 'Хоббит, или Туда и обратно',
-          'author': 'Джон Рональд Руэл Толкин'},
+          'author': 'Джон Рональд Руэл Толкин',
+          'year': '1937',
+          'genre': 'фентези',
+          'cover': '/img/no_photo.webp'},
          {'id': 7,
           'name': 'Братство Кольца',
-          'author': 'Джон Рональд Руэл Толкин'},
+          'author': 'Джон Рональд Руэл Толкин',
+          'year': '1954',
+          'genre': 'фентези',
+          'cover': '/img/no_photo.webp'},
          {'id': 8,
           'name': 'Две крепости',
-          'author': 'Джон Рональд Руэл Толкин'},
+          'author': 'Джон Рональд Руэл Толкин',
+          'year': '1954',
+          'genre': 'фентези',
+          'cover': '/img/no_photo.webp'},
          {'id': 9,
           'name': 'Возвращение короля',
-          'author': 'Джон Рональд Руэл Толкин'}]
+          'author': 'Джон Рональд Руэл Толкин',
+          'year': '1955',
+          'genre': 'фентези',
+          'cover': '/img/no_photo.webp'}]
 
 last_id = 9
 
@@ -55,7 +85,9 @@ def add_book(request):
     global last_id
     name = request.GET.get('name', '')
     author = request.GET.get('author', '')
-    if name and author:
+    year = request.GET.get('year', '')
+    genre = request.GET.get('genre', '')
+    if name and author and year and genre:
         for el in books:
             find_result = False
             if name in el.get('name') and author in el.get('author'):
@@ -64,6 +96,9 @@ def add_book(request):
         if not find_result:
             books.append({'id': last_id + 1,
                           'name': str(name),
-                          'author': author})
+                          'author': author,
+                          'year': year,
+                          'genre': genre,
+                          'cover': '/img/no_photo.webp'})
             last_id += 1
     return HttpResponseRedirect('/')
