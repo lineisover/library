@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 
 books = [{'id': 0,
