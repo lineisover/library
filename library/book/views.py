@@ -63,6 +63,7 @@ books = [{'id': 0,
           'cover': '/img/no_photo.webp'}]
 
 last_id = 9
+FILTER_LIST = ('name', 'author', 'year', 'genre')
 
 
 def index(request):
@@ -70,7 +71,6 @@ def index(request):
 
 
 def book(request, id):
-    id = id
     book = None
     for el in books:
         if el.get('id') == int(id):
@@ -79,6 +79,21 @@ def book(request, id):
         return render(request, 'book/book.html', book)
     else:
         return HttpResponseNotFound('Книги с id: {0} не существует.'.format(id))
+
+
+def filter(request, filter):
+    global FILTER_LIST
+    param = request.GET.get('param', '')
+    if filter not in FILTER_LIST:
+        return HttpResponseNotFound('Фильтрация по {0} невозможна, существуют фильтры: {1}'.format(filter, *FILTER_LIST))
+    books_with_param = list()
+    for book in books:
+        if book.get(filter) == param:
+            books_with_param.append(book)
+    if len(books_with_param) == 0:
+        return HttpResponseNotFound('Нет книг соответствующих запросу')
+    else:
+        return render(request, 'library/index.html', {'books': books_with_param})
 
 
 def add_book(request):
