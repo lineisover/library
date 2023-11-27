@@ -96,6 +96,19 @@ def filter(request, filter):
         return render(request, 'library/index.html', {'books': books_with_param})
 
 
+def all_filters(request):
+    global FILTER_LIST
+    list_filters = dict()
+    for filter in FILTER_LIST[1:]:
+        list_filters.setdefault(filter, [])
+    for book in books:
+        for filter in FILTER_LIST[1:]:
+            if book.get(filter) not in list_filters.get(filter):
+                list_filters[filter].append(book.get(filter))
+    return render(request, 'library/filters.html', {'list_filters': list_filters})
+
+
+
 def add_book(request):
     global last_id
     name = request.GET.get('name', '')

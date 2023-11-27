@@ -21,6 +21,7 @@ from book import views
 
 
 urlpatterns = [
+    path('allfilters/', views.all_filters, name='all_filters'),
     path('add/', views.add_book, name='add'),
     re_path(r'^book/(?P<id>\d+)', views.book, name='book'),
     re_path(r'^filter/(?P<filter>\S+)', views.filter, name='filter'),

@@ -1,0 +1,31 @@
+{% extends "library/base.html" %}
+
+{% block title %}
+Библиотека книг: Список фильтров
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for filter, value in list_filters.items %}
+    <li>
+        {{ filter }}
+        <ul>
+        
+            {% for el in value %}
+    
+            <li>
+                <div>
+                    <p><a href="/filter/{{ filter }}?param={{ el }}">{{ el }}</a></p>
+                </div>
+            </li>
+    
+            {% endfor %}
+    
+        </ul>
+    </li>
+    
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
