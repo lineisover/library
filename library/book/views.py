@@ -1,80 +1,85 @@
+from django.forms import model_to_dict
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from .models import Book
 
-books = [{'id': 0,
-          'name': '1984',
-          'author': 'Джордж Оруэлл',
-          'year': '1949',
-          'genre': 'антиутопия',
-          'cover': '/img/covers/0/1984.webp'},
-         {'id': 1,
-          'name': 'Скотный двор',
-          'author': 'Джордж Оруэлл',
-          'year': '1945',
-          'genre': 'антиутопия',
-          'cover': '/img/covers/1/123.jpg'},
-         {'id': 2,
-          'name': 'Глотнуть воздуха',
-          'author': 'Джордж Оруэлл',
-          'year': '1939',
-          'genre': 'антиутопия',
-          'cover': '/img/no_photo.webp'},
-         {'id': 3,
-          'name': 'Дагон',
-          'author': 'Говард Лавкрафт',
-          'year': '1917',
-          'genre': 'ужасы',
-          'cover': '/img/no_photo.webp'},
-         {'id': 4,
-          'name': 'Картина в доме',
-          'author': 'Говард Лавкрафт',
-          'year': '1920',
-          'genre': 'ужасы',
-          'cover': '/img/no_photo.webp'},
-         {'id': 5,
-          'name': 'Из глубин мироздания',
-          'author': 'Говард Лавкрафт',
-          'year': '1920',
-          'genre': 'ужасы',
-          'cover': '/img/no_photo.webp'},
-         {'id': 6,
-          'name': 'Хоббит, или Туда и обратно',
-          'author': 'Джон Рональд Руэл Толкин',
-          'year': '1937',
-          'genre': 'фентези',
-          'cover': '/img/no_photo.webp'},
-         {'id': 7,
-          'name': 'Братство Кольца',
-          'author': 'Джон Рональд Руэл Толкин',
-          'year': '1954',
-          'genre': 'фентези',
-          'cover': '/img/no_photo.webp'},
-         {'id': 8,
-          'name': 'Две крепости',
-          'author': 'Джон Рональд Руэл Толкин',
-          'year': '1954',
-          'genre': 'фентези',
-          'cover': '/img/no_photo.webp'},
-         {'id': 9,
-          'name': 'Возвращение короля',
-          'author': 'Джон Рональд Руэл Толкин',
-          'year': '1955',
-          'genre': 'фентези',
-          'cover': '/img/no_photo.webp'}]
+# books = [{'id': 0,
+#           'name': '1984',
+#           'author': 'Джордж Оруэлл',
+#           'year': '1949',
+#           'genre': 'антиутопия',
+#           'cover': '/img/covers/0/1984.webp'},
+#          {'id': 1,
+#           'name': 'Скотный двор',
+#           'author': 'Джордж Оруэлл',
+#           'year': '1945',
+#           'genre': 'антиутопия',
+#           'cover': '/img/covers/1/123.jpg'},
+#          {'id': 2,
+#           'name': 'Глотнуть воздуха',
+#           'author': 'Джордж Оруэлл',
+#           'year': '1939',
+#           'genre': 'антиутопия',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 3,
+#           'name': 'Дагон',
+#           'author': 'Говард Лавкрафт',
+#           'year': '1917',
+#           'genre': 'ужасы',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 4,
+#           'name': 'Картина в доме',
+#           'author': 'Говард Лавкрафт',
+#           'year': '1920',
+#           'genre': 'ужасы',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 5,
+#           'name': 'Из глубин мироздания',
+#           'author': 'Говард Лавкрафт',
+#           'year': '1920',
+#           'genre': 'ужасы',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 6,
+#           'name': 'Хоббит, или Туда и обратно',
+#           'author': 'Джон Рональд Руэл Толкин',
+#           'year': '1937',
+#           'genre': 'фентези',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 7,
+#           'name': 'Братство Кольца',
+#           'author': 'Джон Рональд Руэл Толкин',
+#           'year': '1954',
+#           'genre': 'фентези',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 8,
+#           'name': 'Две крепости',
+#           'author': 'Джон Рональд Руэл Толкин',
+#           'year': '1954',
+#           'genre': 'фентези',
+#           'cover': '/img/no_photo.webp'},
+#          {'id': 9,
+#           'name': 'Возвращение короля',
+#           'author': 'Джон Рональд Руэл Толкин',
+#           'year': '1955',
+#           'genre': 'фентези',
+#           'cover': '/img/no_photo.webp'}]
 
 last_id = 9
 FILTER_LIST = ('name', 'author', 'year', 'genre')
 
 
 def index(request):
+    books = Book.objects.all()
     return render(request, 'library/index.html', {'books': books})
 
 
 def book(request, id):
-    book = None
-    for el in books:
-        if el.get('id') == int(id):
-            book = el
+    book = dict()
+    book_query_set = Book.objects.filter(id__exact=id).values()
+    for el in book_query_set:
+        for item in el.items():
+            print(item)
+            book.setdefault(item[0], item[1])
     if book:
         return render(request, 'book/book.html', book)
     else:
@@ -85,7 +90,8 @@ def filter(request, filter):
     global FILTER_LIST
     param = request.GET.get('param', '')
     if filter not in FILTER_LIST:
-        return HttpResponseNotFound('Фильтрация по {0} невозможна, существуют фильтры: {1}'.format(filter, *FILTER_LIST))
+        return HttpResponseNotFound(
+            'Фильтрация по {0} невозможна, существуют фильтры: {1}'.format(filter, *FILTER_LIST))
     books_with_param = list()
     for book in books:
         if book.get(filter) == param:
@@ -106,7 +112,6 @@ def all_filters(request):
             if book.get(filter) not in list_filters.get(filter):
                 list_filters[filter].append(book.get(filter))
     return render(request, 'library/filters.html', {'list_filters': list_filters})
-
 
 
 def add_book(request):
