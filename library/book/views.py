@@ -74,15 +74,10 @@ def index(request):
 
 
 def book(request, id):
-    book = dict()
-    book_query_set = Book.objects.filter(id__exact=id).values()
-    for el in book_query_set:
-        for item in el.items():
-            print(item)
-            book.setdefault(item[0], item[1])
-    if book:
+    try:
+        book = model_to_dict(Book.objects.get(pk=id))
         return render(request, 'book/book.html', book)
-    else:
+    except Book.DoesNotExist:
         return HttpResponseNotFound('Книги с id: {0} не существует.'.format(id))
 
 
