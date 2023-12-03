@@ -64,8 +64,8 @@ from .models import Book
 #           'genre': 'фентези',
 #           'cover': '/img/no_photo.webp'}]
 
-last_id = 9
-FILTER_LIST = ('name', 'author', 'year', 'genre')
+# last_id = 9
+FILTER_LIST = ('title', 'author', 'year', 'genre')
 
 
 def index(request):
@@ -102,6 +102,7 @@ def all_filters(request):
     list_filters = dict()
     for filter in FILTER_LIST[1:]:
         list_filters.setdefault(filter, [])
+    books = list(Book.objects.values())
     for book in books:
         for filter in FILTER_LIST[1:]:
             if book.get(filter) not in list_filters.get(filter):
