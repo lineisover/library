@@ -1,5 +1,12 @@
 from django.db import models
+from django.db.models.query import QuerySet
+from django.urls import reverse
 from django.utils import timezone
+
+
+class PublishedManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return super().get_queryset().filter(status='PB')
 
 
 class Book(models.Model):
@@ -36,6 +43,9 @@ class Book(models.Model):
                               choices=Status.choices,
                               default=Status.DRAFT)
 
+    objects = models.Manager()
+    published = PublishedManager()
+
     class Meta:
         ordering = ['id']
         verbose_name = 'книгу'
@@ -43,3 +53,21 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Author(models.Model):
+    name = models.CharField(verbose_name='Имя',
+                            help_text='Максимальная длина имени 100 символов',
+                            max_length=100,
+                            db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = 'автора'
+        verbose_name_plural = "Авторы"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("_detail", kwargs={"pk": self.pk})

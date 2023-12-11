@@ -1,5 +1,5 @@
 from django.forms import model_to_dict
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from .models import Book
 
@@ -69,7 +69,7 @@ FILTER_LIST = ('title', 'author', 'year', 'genre')
 
 
 def index(request):
-    books = Book.objects.all()
+    books = Book.published.all()
     return render(request, 'library/index.html', {'books': books})
 
 
@@ -113,24 +113,24 @@ def all_filters(request):
     return render(request, 'library/filters.html', {'list_filters': list_filters})
 
 
-def add_book(request):
-    global last_id
-    name = request.GET.get('name', '')
-    author = request.GET.get('author', '')
-    year = request.GET.get('year', '')
-    genre = request.GET.get('genre', '')
-    if name and author and year and genre:
-        for el in books:
-            find_result = False
-            if name in el.get('name') and author in el.get('author'):
-                find_result = True
-                break
-        if not find_result:
-            books.append({'id': last_id + 1,
-                          'name': str(name),
-                          'author': author,
-                          'year': year,
-                          'genre': genre,
-                          'cover': '/img/no_photo.webp'})
-            last_id += 1
-    return HttpResponseRedirect('/')
+# def add_book(request):
+#     global last_id
+#     name = request.GET.get('name', '')
+#     author = request.GET.get('author', '')
+#     year = request.GET.get('year', '')
+#     genre = request.GET.get('genre', '')
+#     if name and author and year and genre:
+#         for el in books:
+#             find_result = False
+#             if name in el.get('name') and author in el.get('author'):
+#                 find_result = True
+#                 break
+#         if not find_result:
+#             books.append({'id': last_id + 1,
+#                           'name': str(name),
+#                           'author': author,
+#                           'year': year,
+#                           'genre': genre,
+#                           'cover': '/img/no_photo.webp'})
+#             last_id += 1
+#     return HttpResponseRedirect('/')
