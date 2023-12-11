@@ -78,7 +78,7 @@ def book(request, id):
         book = model_to_dict(Book.objects.get(pk=id))
         return render(request, 'book/book.html', book)
     except Book.DoesNotExist:
-        return HttpResponseNotFound('Книги с id: {0} не существует.'.format(id))
+        return HttpResponseNotFound('<h2>Книги с id: {0} не существует.</h2>'.format(id))
 
 
 # TODO: Сделать обработку исключений
