@@ -21,7 +21,7 @@
                 <img src={% static el.cover %} alt={{ el.title }} width="150" height="200">
             </div>
             <div class="col-sm">
-                <p>Автор: {{ el.author }}</p>
+                <p>Автор: <a href={% url "author" el.author.slug %}>{{ el.author }}</a></p>
                 <p>Жанр: {{ el.genre }}</p>
                 <p>Год: {{ el.year }}</p>
                 <p>id: {{ el.id }}</p>

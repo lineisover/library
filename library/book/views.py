@@ -1,7 +1,7 @@
 from django.forms import model_to_dict
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
-from .models import Book
+from django.shortcuts import get_object_or_404, render
+from .models import Author, Book
 
 # books = [{'id': 0,
 #           'name': '1984',
@@ -78,7 +78,17 @@ def book(request, id):
         book = Book.objects.get(pk=id)
         return render(request, 'book/book.html', {'book': book})
     except Book.DoesNotExist:
-        return HttpResponseNotFound('<h2>Книги с id: {0} не существует.</h2>'.format(id))
+        return HttpResponseNotFound('<h2>Книги с id: {0} не существует в библиотеке.</h2>'.format(id))
+
+
+# TODO: Плохо сделаны исключения, надо разобраться.
+def author(request, slug_author):
+    try:
+        author = get_object_or_404(Author, slug=slug_author)
+        books = Book.published.filter(author=author.pk)
+        return render(request, 'library/index.html', {'books': books})
+    except Book.DoesNotExist:
+        return HttpResponseNotFound('<h2>Книг автора: {0} не существует в библиотеке.</h2>'.format(author))
 
 
 # TODO: Сделать обработку исключений
