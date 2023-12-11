@@ -17,9 +17,7 @@ class Book(models.Model):
     title = models.CharField(verbose_name='Название',
                              help_text='Название книги до 100 символов',
                              max_length=100)
-    author = models.CharField(verbose_name='Автор',
-                              help_text='Автор книги до 100 символов',
-                              max_length=100)
+    author = models.ForeignKey('Author', on_delete=models.PROTECT)
     year = models.DecimalField(verbose_name='Год издания',
                                help_text='Год издания книги',
                                max_digits=4,

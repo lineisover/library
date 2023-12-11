@@ -5,9 +5,9 @@ from .models import Book, Author
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'author', 'genre', 'year', 'publish', 'status']
-    list_display_links = ['id', 'title']
+    list_display_links = ['id', 'author', 'title']
     list_filter = ['status', 'author', 'year']
-    search_fields = ['title', 'author']
+    search_fields = ['title']
 
 
 @admin.register(Author)

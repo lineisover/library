@@ -1,13 +1,13 @@
 {% extends "library/base.html" %}
 
 {% block title %}
-Библиотека книг: {{ title }}
+Библиотека книг: {{ book.title }}
 {% endblock %}
 
 {% block content %}
-<h2>id: {{ id }}</h2>
-<h2>Название: {{ title }}</h2>
-<h2>Автор: {{ author }}</h2>
-<h2>Жанр: {{ genre }}</h2>
-<h2>Год публикации: {{ year }}</h2>
+<h2>id: {{ book.id }}</h2>
+<h2>Название: {{ book.title }}</h2>
+<h2>Автор: {{ book.author }}</h2>
+<h2>Жанр: {{ book.genre }}</h2>
+<h2>Год публикации: {{ book.year }}</h2>
 {% endblock %}

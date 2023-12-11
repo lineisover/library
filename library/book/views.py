@@ -75,8 +75,8 @@ def index(request):
 
 def book(request, id):
     try:
-        book = model_to_dict(Book.objects.get(pk=id))
-        return render(request, 'book/book.html', book)
+        book = Book.objects.get(pk=id)
+        return render(request, 'book/book.html', {'book': book})
     except Book.DoesNotExist:
         return HttpResponseNotFound('<h2>Книги с id: {0} не существует.</h2>'.format(id))
 
