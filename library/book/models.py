@@ -33,10 +33,10 @@ class Book(models.Model):
         max_length=50,
         blank=False,
     )
-    cover = models.CharField(
+    cover = models.ImageField(
+        upload_to='img/covers',
+        default='/img/covers/no_photo.webp',
         verbose_name='Обложка',
-        max_length=250,
-        default='/img/no_photo.webp',
     )
     publish = models.DateTimeField(
         verbose_name='Дата публикации',

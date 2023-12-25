@@ -18,7 +18,7 @@
     <div class="card-body">
         <div class='row'>
             <div class="col-sm" style="height: 220px;">
-                <img src={% static el.cover %} alt={{ el.title }} width="150" height="200">
+                <img src={{ el.cover.url }} alt={{ el.title }} width="150" height="200">
             </div>
             <div class="col-sm">
                 <p>Автор: <a href={% url "author" el.author.slug %}>{{ el.author }}</a></p>

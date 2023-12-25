@@ -1,6 +1,9 @@
+from django.conf.urls.static import static
 from django.urls import path, re_path
-from . import views
 
+from library import settings
+
+from . import views
 
 urlpatterns = [
     path('allfilters/', views.all_filters, name='all_filters'),
@@ -10,3 +13,6 @@ urlpatterns = [
     re_path(r'^filter/(?P<filter>\S+)', views.filter, name='filter'),
     path('', views.index, name='home'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
