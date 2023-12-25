@@ -3,3 +3,5 @@ __pycache__/
 .dev-venv
 .vscode/
 launch.json
+library/.env
+pyproject.toml
